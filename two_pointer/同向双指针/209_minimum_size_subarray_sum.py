@@ -15,3 +15,26 @@ Constraints:
 - 1 <= nums.length <= 10^5
 - 1 <= nums[i] <= 10^5
 """
+class Solution:
+    def minSubArrayLen(self, target: int, nums: list[int]) -> int:
+        n = len(nums)
+        if sum(nums) < target:
+            return 0
+        elif sum(nums) == target:
+            return n
+        if target in nums:
+            return 1
+        left = 0
+        res = n
+        curr_sum = 0
+        for right in range(n):
+            curr_sum += nums[right]
+            while curr_sum >= target:
+                res = min(res, right - left + 1)
+                curr_sum -= nums[left]
+                left += 1
+            
+        return res
+
+test = Solution()
+print(test.minSubArrayLen(7, [2,3,1,2,4,3]))
