@@ -27,4 +27,22 @@ Explanation: The next greater element for each value of nums1 is as follows:
 from typing import List
 class Soluiton:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        stack = []
+        mp = {}
+        res = []
+        for num in nums2:
+            while stack and num > stack[-1]:
+                mp[stack.pop()] = num 
+            stack.append(num)
         
+        while stack:
+            mp[stack.pop()] = -1
+        
+        for num in nums1:
+            res.append(mp[num])
+        
+        return res
+
+test = Soluiton()
+print(test.nextGreaterElement([4, 1, 2],[1, 3, 4, 2]))
+print(test.nextGreaterElement(nums1 = [1, 3],nums2 = [1, 3, 5, 2, 4]))
